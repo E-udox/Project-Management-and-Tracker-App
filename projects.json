@@ -1,0 +1,26 @@
+[
+  {
+    "id": -4966257171101843149,
+    "name": "Goodbye World",
+    "description": "a description here",
+    "createdOn": 1604095491844,
+    "closedOn": -1,
+    "isActive": false,
+    "activeSince": -1,
+    "totalActiveTime": 0,
+    "priority": 0,
+    "tasks": []
+  },
+  {
+    "id": -7301351108303654322,
+    "name": "Another Random Project",
+    "description": "Hello World",
+    "createdOn": 1604095861219,
+    "closedOn": -1,
+    "isActive": false,
+    "activeSince": -1,
+    "totalActiveTime": 0,
+    "priority": 0,
+    "tasks": []
+  }
+]

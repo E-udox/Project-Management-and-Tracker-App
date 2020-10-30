@@ -47,10 +47,14 @@ class ProjectJSONStore : ProjectStore {
             foundProject.name = project.name
             foundProject.description = project.description
             foundProject.activeSince = project.activeSince
-            foundProject.closedOn = project.closedOn
             foundProject.priority = project.priority
             foundProject.tasks = project.tasks
-            foundProject.totalActiveTme = project.totalActiveTme
+            if (foundProject.isActive) {
+                foundProject.totalActiveTime = project.totalActiveTime + (System.currentTimeMillis() - project.activeSince)
+            }
+            else
+                foundProject.totalActiveTime = project.totalActiveTime
+            foundProject.isActive = project.isActive
         }
         serialize()
     }
