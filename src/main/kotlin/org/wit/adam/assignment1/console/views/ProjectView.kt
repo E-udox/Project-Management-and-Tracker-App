@@ -1,7 +1,10 @@
 package org.wit.adam.assignment1.console.views
 
+import javafx.concurrent.Task
+import org.wit.adam.assignment1.console.helpers.read
 import org.wit.adam.assignment1.console.models.ProjectJSONStore
 import org.wit.adam.assignment1.console.models.ProjectModel
+import org.wit.adam.assignment1.console.models.TaskModel
 
 class ProjectView {
 
@@ -38,13 +41,60 @@ class ProjectView {
     }
 
     fun addProjectData(project : ProjectModel) : Boolean {
+        var setActive: String
+        var tempPriority: Int
+        var addTasksNow: String
+
         println()
         print("Enter a project name: ")
         project.name = readLine()!!
         print("Enter a description: ")
         project.description = readLine()!!
 
+        do {
+            print("Give your project a priority (1-5): ")
+            tempPriority = readLine()?.toIntOrNull()!!
+        }
+        while (tempPriority == null || tempPriority > 5 || tempPriority < 0)
+        project.priority = tempPriority
+
+        print("Do you want to add tasks to this project now? y/n: ")
+        addTasksNow = readLine()!!
+        if (addTasksNow.toUpperCase() == "Y") {
+            addTasksToProject(project)
+        }
+
+        print("Do you want to set this project as active now? y/n: ")
+        setActive = readLine()!!
+        if (setActive.toUpperCase() == "Y") {
+            project.isActive = true
+            project.activeSince = System.currentTimeMillis()
+        }
+
         return project.name.isNotEmpty() && project.description.isNotEmpty()
+    }
+
+    fun addTasksToProject(project: ProjectModel): Boolean {
+        var addAnotherTask: String = ""
+
+        do {
+            var task: TaskModel = TaskModel()
+
+            println()
+            print("Enter the task description: ")
+            task.description = readLine()!!
+
+            if (task.description.isNotEmpty()) {
+                project.tasks.add(task)
+                print("Task added. Do you want to add another task? y/n: ")
+                addAnotherTask = readLine()!!
+            }
+            else
+                println("You have to add a task description...")
+
+        } while (addAnotherTask.toUpperCase() == "Y")
+
+        return true
     }
 
     fun updateProjectData(project : ProjectModel) : Boolean {
