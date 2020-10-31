@@ -13,7 +13,11 @@ val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listType = object : TypeToken<java.util.ArrayList<ProjectModel>>() {}.type
 
 fun generateRandomId(): Long {
-    return Random().nextLong()
+    var id: Long = Random().nextLong()
+    if (id > 0) {
+        return id
+    }
+    else return generateRandomId()
 }
 
 class ProjectJSONStore : ProjectStore {

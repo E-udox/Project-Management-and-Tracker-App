@@ -45,10 +45,10 @@ class ProjectController {
 
 
     fun list() {
-        var optionChosen: Int
+        var input: Int
 
-        optionChosen = projectView.viewProjects()
-        when(optionChosen) {
+        input = projectView.viewProjects()
+        when(input) {
             1 -> projectView.listProjects(projects.getAll())
             2 -> projectView.listProjects(projects.getProjectsByStatus(true, false))
             3 -> projectView.listProjects(projects.getProjectsByStatus(false, false))
@@ -63,12 +63,28 @@ class ProjectController {
         val project = search(searchId)
 
         if(project != null) {
-            if(projectView.updateProjectData(project)) {
-                projects.update(project)
-                projectView.showProject(project)
+            if (project.closed) {
+                println("This project was closed, you cannot edit it again.")
             }
-            else
-                logger.info("Project not updated")
+            var input: Int = projectView.updateOptions(project)
+
+            when(input) {
+                1 -> projectView.addTasksToProject(project)
+                2 -> {
+                    project.isActive = !project.isActive
+                    project.activeSince = System.currentTimeMillis() //
+                }
+                3 -> project.name = projectView.updateProjectData(project.name, "name")
+                4 -> project.description = projectView.updateProjectData(project.description, "description")
+                5 -> {
+                    if (projectView.confirmResponse("Are you sure you want to close this project?")) {
+                        project.closed = true
+                        project.isActive = false
+                        project.closedOn = System.currentTimeMillis()
+                    }
+                }
+                else -> return
+            }
         }
         else
             println("A project with this ID wasn't found :(")

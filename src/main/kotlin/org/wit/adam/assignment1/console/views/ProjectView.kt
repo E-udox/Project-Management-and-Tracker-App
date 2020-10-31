@@ -29,6 +29,28 @@ class ProjectView {
         return option
     }
 
+    fun updateOptions(project: ProjectModel): Int {
+        var input: Int
+
+        var activeStr: String
+        if (project.isActive) {
+            activeStr = "active"
+        }
+        else
+            activeStr = "not active"
+
+        println("UPDATE PROJECT OPTIONS")
+        println(" 1. Add a new task")
+        println(" 2. Set project as active/inactive (currently $activeStr")
+        println(" 3. Edit the project name")
+        println(" 4. Edit the project description")
+        println(" 5. Close the project")
+        println(" 0. Cancel")
+
+        input = waitForValidResponse("Select an option from above: ", true, 0, 5) as Int
+        return input
+    }
+
     fun showProject(project : ProjectModel) {
         if (project != null) {
             println()
@@ -48,7 +70,6 @@ class ProjectView {
 
             // https://stackoverflow.com/questions/47250263/kotlin-convert-timestamp-to-datetime
             // https://www.tutorialspoint.com/simpledateformat-hh-mm-ss-in-java2
-
             var activeTimeStr: String
             var tempActiveTime: Long = project.totalActiveTime
 
@@ -66,6 +87,8 @@ class ProjectView {
             }
             else
                 closedStr = "No"
+
+            println("Project ID: ${project.id}")
             println("Closed: $closedStr")
         }
     }
@@ -183,24 +206,12 @@ class ProjectView {
         }
     }
 
-    fun updateProjectData(project : ProjectModel) : Boolean {
+    fun updateProjectData(currentValue: String, propertyName: String): String {
+        var input: String
 
-        var tempName: String?
-        var tempDescription: String?
-
-        if (project != null) {
-            print("Enter a new name for this project: ")
-            tempName = readLine()!!
-            print("Enter a new description for the project: ")
-            tempDescription = readLine()!!
-
-            if (!tempName.isNullOrEmpty() && !tempDescription.isNullOrEmpty()) {
-                project.name = tempName
-                project.description = tempDescription
-                return true
-            }
-        }
-        return false
+        println("Current $propertyName for this project is '$currentValue'")
+        input = waitForValidResponse("Enter a new $propertyName for this project: ", false, 5, 15) as String
+        return input
     }
 
     fun getId() : Long {
