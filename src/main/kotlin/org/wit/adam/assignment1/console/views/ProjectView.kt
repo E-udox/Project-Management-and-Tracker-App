@@ -1,7 +1,5 @@
 package org.wit.adam.assignment1.console.views
 
-import javafx.concurrent.Task
-import org.wit.adam.assignment1.console.helpers.read
 import org.wit.adam.assignment1.console.models.ProjectJSONStore
 import org.wit.adam.assignment1.console.models.ProjectModel
 import org.wit.adam.assignment1.console.models.TaskModel
@@ -40,33 +38,77 @@ class ProjectView {
         projects.logAll()
     }
 
+    fun waitForValidResponse(prompt: String, intValue: Boolean, min: Int, max: Int): Any {
+        var value: String
+
+        while (true) {
+            print(prompt)
+            value = readLine()!!
+
+            if (value.isEmpty()) {
+                System.out.println("You can't skip this, sorry. :(")
+            }
+            else if (intValue) {
+                var tempInt: Int?
+                tempInt = value.toIntOrNull()
+
+                if (tempInt == null) {
+                    println("You must specify a valid number.")
+                } else if (tempInt < min || tempInt > max) {
+                    println("You must specify a number between $min and $max.")
+                }
+                else
+                    return tempInt
+            } else
+                if (value.length < min) {
+                    println("Sorry, this is too short. Try something longer (min length is $min)")
+                } else if (value.length > max) {
+                    println("Sorry, this is too long. Try something shorter (max length is $max)")
+                } else
+                    return value
+        }
+    }
+
+    fun confirmResponse(prompt: String): Boolean {
+        val response: String
+
+        print(prompt+" y/n: ")
+        response = readLine()!!
+
+        when (response.toUpperCase()) {
+            "Y" -> return true
+            "N" -> return false
+            else -> {
+                println("This is an invalid response...")
+                return confirmResponse(prompt)
+            }
+        }
+    }
+
     fun addProjectData(project : ProjectModel) : Boolean {
         var setActive: String
-        var tempPriority: Int
+        var tempPriority: Int?
         var addTasksNow: String
 
         println()
-        print("Enter a project name: ")
-        project.name = readLine()!!
-        print("Enter a description: ")
-        project.description = readLine()!!
+        project.name = waitForValidResponse("Enter a project name: ", false, 5, 20) as String
+        project.description = waitForValidResponse("Enter a project description: ", false, 10, 30) as String
+        project.priority = waitForValidResponse("Give your project a priority between 1 (low) and 5 (high): ", true, 1, 5) as Int
 
-        do {
-            print("Give your project a priority (1-5): ")
-            tempPriority = readLine()?.toIntOrNull()!!
+
+/*      I started using the waitForValidResponse function to stop this code below from popping up everywhere
+        while (tempPriority == null || tempPriority > 5 || tempPriority < 0) {
+            print("Invalid input... the priority must be a number between 1 (low) and 5 (high): ")
+            tempPriority = readLine()!!.toIntOrNull()
         }
-        while (tempPriority == null || tempPriority > 5 || tempPriority < 0)
-        project.priority = tempPriority
+        project.priority = tempPriority*/
 
-        print("Do you want to add tasks to this project now? y/n: ")
-        addTasksNow = readLine()!!
-        if (addTasksNow.toUpperCase() == "Y") {
+        if (confirmResponse("Do you want to add tasks to this project now?")) {
             addTasksToProject(project)
         }
 
-        print("Do you want to set this project as active now? y/n: ")
-        setActive = readLine()!!
-        if (setActive.toUpperCase() == "Y") {
+
+        if (confirmResponse("Do you want to set this project as active now?")) {
             project.isActive = true
             project.activeSince = System.currentTimeMillis()
         }
