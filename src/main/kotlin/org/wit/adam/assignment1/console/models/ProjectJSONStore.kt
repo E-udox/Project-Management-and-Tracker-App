@@ -35,6 +35,18 @@ class ProjectJSONStore : ProjectStore {
         return foundProject
     }
 
+    fun getProjectsByName(searchStr: String): List<ProjectModel> {
+        var projectsFound = projects.filter{ p -> p.name.contains(searchStr, true)}
+
+        return projectsFound
+    }
+
+    fun getProjectsByStatus(active: Boolean, closed: Boolean): List<ProjectModel> {
+        var projectsFound = projects.filter{ p -> p.isActive == active && p.closed == closed }
+
+        return projectsFound
+    }
+
     override fun create(project: ProjectModel) {
         project.id = generateRandomId()
         projects.add(project)

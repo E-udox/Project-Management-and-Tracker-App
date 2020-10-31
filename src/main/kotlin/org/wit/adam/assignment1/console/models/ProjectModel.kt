@@ -12,4 +12,5 @@ data class ProjectModel(var id: Long = 0,
                         var activeSince: Long = -1, // this will track when a project was flagged as being active.
                         var totalActiveTime: Long = 0,
                         var priority: Int = 0,
+                        var closed: Boolean = false,
                         var tasks: ArrayList<TaskModel> = ArrayList<TaskModel>())

@@ -42,9 +42,20 @@ class ProjectController {
             logger.info("Project not created.")
     }
 
+
+
     fun list() {
-        projectView.showAllProjects(projects)
-        // TODO: Functionality for listing projects
+        var optionChosen: Int
+
+        optionChosen = projectView.viewProjects()
+        when(optionChosen) {
+            1 -> projectView.listProjects(projects.getAll())
+            2 -> projectView.listProjects(projects.getProjectsByStatus(true, false))
+            3 -> projectView.listProjects(projects.getProjectsByStatus(false, false))
+            4 -> projectView.listProjects(projects.getProjectsByStatus(false, true))
+            5 -> projectView.listProjects(projects.getProjectsByName(projectView.searchForProject()))
+            else -> return
+        }
     }
 
     fun update() {
