@@ -48,7 +48,6 @@ class ProjectView {
 
             // https://stackoverflow.com/questions/47250263/kotlin-convert-timestamp-to-datetime
             // https://www.tutorialspoint.com/simpledateformat-hh-mm-ss-in-java2
-            2
 
             var activeTimeStr: String
             var tempActiveTime: Long = project.totalActiveTime
@@ -94,8 +93,6 @@ class ProjectView {
 
         return input
     }
-
-
 
     fun listProjects(projects: List<ProjectModel>) {
         println("-------------------------------------------------")
