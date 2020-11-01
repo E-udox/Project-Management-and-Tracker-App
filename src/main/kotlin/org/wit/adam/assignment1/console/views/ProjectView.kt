@@ -46,10 +46,10 @@ class ProjectView {
         println(" 4. Edit the project description")
         println(" 5. View/Edit tasks")
         println(" 6. Close the project")
-        println(" 6. Delete the project")
+        println(" 7. Delete the project")
         println(" 0. Cancel")
 
-        input = waitForValidResponse("Select an option from above: ", true, 0, 6) as Int
+        input = waitForValidResponse("Select an option from above: ", true, 0, 7) as Int
         return input
     }
 
