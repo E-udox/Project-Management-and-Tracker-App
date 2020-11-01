@@ -44,10 +44,12 @@ class ProjectView {
         println(" 2. Set project as active/inactive (currently $activeStr")
         println(" 3. Edit the project name")
         println(" 4. Edit the project description")
-        println(" 5. Close the project")
+        println(" 5. View/Edit tasks")
+        println(" 6. Close the project")
+        println(" 6. Delete the project")
         println(" 0. Cancel")
 
-        input = waitForValidResponse("Select an option from above: ", true, 0, 5) as Int
+        input = waitForValidResponse("Select an option from above: ", true, 0, 6) as Int
         return input
     }
 
@@ -57,8 +59,8 @@ class ProjectView {
             println("Project name: ${project.name}")
             println("Project descripton: ${project.description}")
 
-            val defaultTimeFormat = SimpleDateFormat("dd.MM.YY")
-            val timeStr: String = defaultTimeFormat.format(Date(project.createdOn))
+            var defaultTimeFormat = SimpleDateFormat("dd.MM.YY")
+            var timeStr: String = defaultTimeFormat.format(Date(project.createdOn))
             println("Project created on: $timeStr")
 
             var activeStr: String
@@ -81,7 +83,8 @@ class ProjectView {
                 activeTimeStr = "This project has never been active"
             }
             else {
-                activeTimeStr = "${Date(project.totalActiveTime).hours}h ${Date(project.totalActiveTime).minutes}m ${Date(project.totalActiveTime).seconds}s"
+                // can't figure out why but the hour part of the date always starts with one hour, so I've hardcoded -1 to negate that...
+                activeTimeStr = "${Date(project.totalActiveTime).hours - 1}h ${Date(project.totalActiveTime).minutes}m ${Date(project.totalActiveTime).seconds}s"
             }
             println("Total active time: $activeTimeStr")
 
@@ -98,6 +101,63 @@ class ProjectView {
             println("Closed: $closedStr")
         }
     }
+
+    fun showTask(task: TaskModel) {
+        println()
+        println("Description: ${task.description}")
+
+        var defaultTimeFormat = SimpleDateFormat("dd.MM.YY")
+        var timeStr: String = defaultTimeFormat.format(Date(task.createdOn))
+        println("Created on: $timeStr")
+
+        if (task.closedOn == -1L) {
+            println("Closed: No")
+        }
+        else {
+            var timeStr: String = defaultTimeFormat.format(Date(task.closedOn))
+            println("Closed on: $timeStr")
+        }
+        println("Task ID: ${task.id}")
+    }
+
+    // @listProject
+    fun listProjectTasks(project: ProjectModel): Boolean {
+        if (project.tasks.size > 0) {
+            println("-------------------------------------------------")
+            project.tasks.forEach { t -> showTask(t) }
+            println("-------------------------------------------------")
+            return true
+        }
+        else{
+            System.out.println("There are no tasks for this project... would you like to add some?")
+            if (confirmResponse("There are no tasks for this project... would you like to add some?")) {
+                addTasksToProject(project)
+                return true
+            }
+            else
+                return false
+        }
+    }
+
+    fun updateTask(task: TaskModel) {
+        println("Current description for task ${task.description}")
+        task.description = waitForValidResponse("Please enter a new description for this task: ", false, 10, 20) as String
+    }
+
+    fun showTaskMenu(): Int {
+        var input: Int
+
+        println("TASK MENU OPTIONS")
+        println(" 1. Edit task description")
+        println(" 2. Close task")
+        println(" 3. Delete task")
+        println(" 0. Cancel")
+
+        input = waitForValidResponse("Select an option from above: ", true, 0, 3) as Int
+        return input
+    }
+
+
 
     fun searchForProject(): String {
         var searchStr: String
@@ -201,11 +261,22 @@ class ProjectView {
         return true
     }
 
+    // TODO: Please please take this away :pensive:
+    fun generateRandomId(): Long {
+        var id: Long = Random().nextLong()
+        if (id > 0) {
+            return id
+        }
+        else return generateRandomId()
+    }
+
     fun addTasksToProject(project: ProjectModel) {
         var task: TaskModel = TaskModel()
 
         task.description = waitForValidResponse("Enter the task description: ", false, 5, 20) as String
+        task.id = generateRandomId() // :(
         project.tasks.add(task)
+
 
         if (confirmResponse("Add another task to this project?")) {
             addTasksToProject(project)
@@ -220,10 +291,15 @@ class ProjectView {
         return input
     }
 
-    fun getId() : Long {
+    fun getId(isTask: Boolean) : Long {
         var strId : String? // String to hold user input
         var searchId : Long // Long to hold converted id
-        print("Enter id of the project: ")
+        if (isTask) {
+            print("Enter the ID of the task: ")
+        }
+        else
+            print("Enter the ID of the project: ")
+
         strId = readLine()!!
         searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
             strId.toLong()

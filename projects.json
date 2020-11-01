@@ -33,7 +33,7 @@
     "closedOn": -1,
     "isActive": true,
     "activeSince": 1604097928096,
-    "totalActiveTime": 0,
+    "totalActiveTime": 158584665,
     "priority": 3,
     "closed": false,
     "tasks": []
@@ -46,7 +46,7 @@
     "closedOn": -1,
     "isActive": true,
     "activeSince": 1604100270480,
-    "totalActiveTime": 0,
+    "totalActiveTime": 156242281,
     "priority": 4,
     "closed": false,
     "tasks": [
@@ -95,5 +95,37 @@
     "priority": 5,
     "closed": false,
     "tasks": []
+  },
+  {
+    "id": 5437556518986166074,
+    "name": "Testing Tasks",
+    "description": "This is to test tasks...",
+    "createdOn": 1604270684093,
+    "closedOn": -1,
+    "isActive": false,
+    "activeSince": -1,
+    "totalActiveTime": 0,
+    "priority": 5,
+    "closed": false,
+    "tasks": [
+      {
+        "id": 3953939748914972876,
+        "description": "Hello World!",
+        "createdOn": 1604270697994,
+        "closedOn": -1
+      },
+      {
+        "id": 4941960133443242206,
+        "description": "Hi there",
+        "createdOn": 1604270705099,
+        "closedOn": -1
+      },
+      {
+        "id": 5360767530866673300,
+        "description": "testing tasks",
+        "createdOn": 1604270708746,
+        "closedOn": -1
+      }
+    ]
   }
 ]
