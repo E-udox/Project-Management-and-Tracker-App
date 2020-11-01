@@ -9,6 +9,7 @@
     "activeSince": -1,
     "totalActiveTime": 0,
     "priority": 0,
+    "closed": false,
     "tasks": []
   },
   {
@@ -21,6 +22,7 @@
     "activeSince": -1,
     "totalActiveTime": 0,
     "priority": 0,
+    "closed": false,
     "tasks": []
   },
   {
@@ -33,6 +35,7 @@
     "activeSince": 1604097928096,
     "totalActiveTime": 0,
     "priority": 3,
+    "closed": false,
     "tasks": []
   },
   {
@@ -45,6 +48,7 @@
     "activeSince": 1604100270480,
     "totalActiveTime": 0,
     "priority": 4,
+    "closed": false,
     "tasks": [
       {
         "id": 0,
@@ -76,6 +80,20 @@
     "activeSince": -1,
     "totalActiveTime": 0,
     "priority": 3,
+    "closed": false,
+    "tasks": []
+  },
+  {
+    "id": 3881789770517825701,
+    "name": "Testing Activity",
+    "description": "Testing Activity Time",
+    "createdOn": 1604251050571,
+    "closedOn": -1,
+    "isActive": false,
+    "activeSince": -1,
+    "totalActiveTime": 0,
+    "priority": 5,
+    "closed": false,
     "tasks": []
   }
 ]

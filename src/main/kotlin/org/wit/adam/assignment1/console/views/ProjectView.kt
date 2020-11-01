@@ -56,7 +56,9 @@ class ProjectView {
             println()
             println("Project name: ${project.name}")
             println("Project descripton: ${project.description}")
-            var timeStr: String = java.time.format.DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.ofEpochSecond(project.createdOn))
+
+            val defaultTimeFormat = SimpleDateFormat("dd.MM.YY")
+            val timeStr: String = defaultTimeFormat.format(Date(project.createdOn))
             println("Project created on: $timeStr")
 
             var activeStr: String
@@ -68,18 +70,22 @@ class ProjectView {
             println("Project active: $activeStr")
 
 
-            // https://stackoverflow.com/questions/47250263/kotlin-convert-timestamp-to-datetime
-            // https://www.tutorialspoint.com/simpledateformat-hh-mm-ss-in-java2
-            var activeTimeStr: String
-            var tempActiveTime: Long = project.totalActiveTime
+            var activeTimeStr: String = ""
 
+            // if the project is currently active I'm adding the amount of time it's been active to the recorded total time it already has
             if (project.isActive) {
-                tempActiveTime = tempActiveTime + (System.currentTimeMillis() - project.activeSince)
+                project.totalActiveTime = project.totalActiveTime + (System.currentTimeMillis() - project.activeSince)
             }
-            val sdf = SimpleDateFormat("hh.mm.ss")
-            val netDate = Date(tempActiveTime)
-            activeTimeStr = sdf.format(netDate)
+
+            if (project.totalActiveTime == 0L) {
+                activeTimeStr = "This project has never been active"
+            }
+            else {
+                activeTimeStr = "${Date(project.totalActiveTime).hours}h ${Date(project.totalActiveTime).minutes}m ${Date(project.totalActiveTime).seconds}s"
+            }
             println("Total active time: $activeTimeStr")
+
+            println("Number of tasks: ${project.tasks.size}")
 
             var closedStr: String
             if (project.closed) {
