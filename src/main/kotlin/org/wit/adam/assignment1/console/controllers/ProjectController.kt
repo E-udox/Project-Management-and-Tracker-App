@@ -1,6 +1,7 @@
 package org.wit.adam.assignment1.console.controllers
 
 import mu.KotlinLogging
+import org.wit.adam.assignment1.console.helpers.ConsoleColors
 import org.wit.adam.assignment1.console.models.ProjectJSONStore
 import org.wit.adam.assignment1.console.models.ProjectModel
 import org.wit.adam.assignment1.console.models.TaskModel
@@ -25,7 +26,7 @@ class ProjectController {
                 3 -> update()
                 4 -> settings()
                 0 -> println("Exiting the app...")
-                else -> println("Your option $input is invalid, try again")
+                else -> ConsoleColors.warning("Your option $input is invalid, try again")
             }
             println()
         } while (input != 0)
@@ -76,7 +77,7 @@ class ProjectController {
             task = project.tasks.find { t -> t.id == taskId }
         }
         else {
-            println("Only one task available, automatically selecting...")
+            ConsoleColors.success("Only one task available, automatically selecting...")
             task = project.tasks.first()
             println()
             projectView.showTask(task)
@@ -84,7 +85,7 @@ class ProjectController {
 
         if (task != null) {
             if (task.closedOn != -1L) {
-                println("This task has been closed, you cannot further edit it.")
+                ConsoleColors.warning("This task has been closed, you cannot further edit it.")
                 return
             }
 
@@ -95,13 +96,13 @@ class ProjectController {
                     1 -> projectView.promptUpdateTask(task)
                     2 -> {
                         task.closedOn = System.currentTimeMillis()
-                        println("Task has been closed.")
+                        ConsoleColors.success("Task has been closed.")
                         return
                     }
                     3 -> {
                         if (projectView.confirmResponse("Are you sure you want to delete this task?")) {
                             project.tasks.remove(task)
-                            println("Task has been deleted.")
+                            ConsoleColors.success("Task has been deleted.")
                             return
                         }
                     }
@@ -109,7 +110,7 @@ class ProjectController {
             } while (input != 0)
         }
         else {
-            println("There was no task with this ID found... try again")
+            ConsoleColors.warning("There was no task with this ID found... try again")
             taskMenu(project)
         }
     }
@@ -122,7 +123,7 @@ class ProjectController {
 
         if(project != null) {
             if (project.closed) {
-                println("This project was closed, you cannot edit it again.")
+                ConsoleColors.warning("This project was closed, you cannot edit it again.")
             }
 
             do {
@@ -133,15 +134,15 @@ class ProjectController {
                     2 -> {
                         project.isActive = !project.isActive
                         project.activeSince = System.currentTimeMillis()
-                        System.out.println("Project activity updated.")
+                        ConsoleColors.success("Project activity updated.")
                     }
                     3 -> {
                         project.name = projectView.updateProjectData(project.name, "name")
-                        println("Project name updated.")
+                        ConsoleColors.success("Project name updated.")
                     }
                     4 -> {
                         project.description = projectView.updateProjectData(project.description, "description")
-                        println("Project description updated.")
+                        ConsoleColors.success("Project description updated.")
                     }
                     5 -> taskMenu(project)
                     6 -> {
@@ -149,22 +150,23 @@ class ProjectController {
                             project.closed = true
                             project.isActive = false
                             project.closedOn = System.currentTimeMillis()
-                            println("Project has been closed...")
+                            ConsoleColors.success("Project has been closed...")
                             return
                         }
                     }
                     7 -> {
                         if (projectView.confirmResponse("Are you sure you want to delete this project?")) {
                             projects.projects.remove(project)
-                            println("Project has been deleted...")
+                            ConsoleColors.success("Project has been deleted...")
                         }
                     }
-                    else -> println("Invalid input, try again.")
+                    0 -> ConsoleColors.success("Going back to main menu...")
+                    else -> ConsoleColors.warning("Invalid input, try again.")
                 }
             } while (input != 0)
         }
         else
-            println("A project with this ID wasn't found :(")
+            ConsoleColors.warning("A project with this ID wasn't found :(")
     }
 
 

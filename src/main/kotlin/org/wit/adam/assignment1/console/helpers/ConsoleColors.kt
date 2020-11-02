@@ -1,5 +1,7 @@
 package org.wit.adam.assignment1.console.helpers
 
+import java.lang.Exception
+
 
 //https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println/5762502#5762502
 
@@ -76,4 +78,27 @@ object ConsoleColors {
     const val PURPLE_BACKGROUND_BRIGHT = "\u001b[0;105m" // PURPLE
     const val CYAN_BACKGROUND_BRIGHT = "\u001b[0;106m" // CYAN
     const val WHITE_BACKGROUND_BRIGHT = "\u001b[0;107m" // WHITE
+
+    fun warning(text: String) {
+        print(YELLOW_BACKGROUND_BRIGHT)
+        println(text)
+        print(RESET)
+    }
+
+    fun success(text: String) {
+        print(GREEN_BACKGROUND_BRIGHT)
+        println(text)
+        print(RESET)
+    }
+
+    fun prompt(text: String) {
+        print(CYAN_BACKGROUND_BRIGHT)
+        print(text)
+        print(RESET)
+    }
+
+    fun highlight(text: String) {
+        var newText: String = text.replace("<b>", BLACK_BOLD).replace("</b>", RESET)
+        println(newText)
+    }
 }

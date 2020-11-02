@@ -63,5 +63,18 @@
     "priority": 5,
     "closed": false,
     "tasks": []
+  },
+  {
+    "id": 3157604303211617490,
+    "name": "1st project",
+    "description": "1 project description",
+    "createdOn": 1604343582600,
+    "closedOn": -1,
+    "isActive": true,
+    "activeSince": 1604343601058,
+    "totalActiveTime": 0,
+    "priority": 4,
+    "closed": false,
+    "tasks": []
   }
 ]

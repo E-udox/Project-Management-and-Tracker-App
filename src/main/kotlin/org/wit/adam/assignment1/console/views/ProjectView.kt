@@ -15,23 +15,17 @@ class ProjectView {
     var projectDescriptionMinLength: Int = 10
 
     fun menu() : Int {
-
         var option: Int
-        var input: String?
 
-        println("PROJECT MANAGEMENT AND TRACKER MENU")
-        println(" 1. Start a new project")
-        println(" 2. View projects")
-        println(" 3. Edit a project")
-        println(" 4. Settings")
-        println(" 0. Exit")
+        ConsoleColors.highlight("<b>PROJECT MANAGEMENT AND TRACKER MENU</b>")
+        ConsoleColors.highlight(" <b>1.</b> Start a new project")
+        ConsoleColors.highlight(" <b>2.</b> View projects")
+        ConsoleColors.highlight(" <b>3.</b> Edit a project")
+        ConsoleColors.highlight(" <b>4.</b> Settings")
+        ConsoleColors.highlight(" <b>0.</b> Exit")
         println()
-        print("Enter an option: ")
-        input = readLine()!!
-        option = if (input.toIntOrNull() != null && !input.isEmpty())
-            input.toInt()
-        else
-            -9
+        option = waitForValidResponse("Enter an option: ", true, 0, 4) as Int
+
         return option
     }
 
@@ -45,15 +39,15 @@ class ProjectView {
         else
             activeStr = "not active"
 
-        println("UPDATE PROJECT OPTIONS")
-        println(" 1. Add a new task")
-        println(" 2. Set project as active/inactive (currently $activeStr)")
-        println(" 3. Edit the project name")
-        println(" 4. Edit the project description")
-        println(" 5. View/Edit tasks (${project.tasks.size} tasks)")
-        println(" 6. Close the project")
-        println(" 7. Delete the project")
-        println(" 0. Cancel")
+        ConsoleColors.highlight("<b>UPDATE PROJECT OPTIONS</b>")
+        ConsoleColors.highlight(" <b>1.</b> Add a new task")
+        ConsoleColors.highlight(" <b>2.</b> Set project as active/inactive (currently $activeStr)")
+        ConsoleColors.highlight(" <b>3.</b> Edit the project name")
+        ConsoleColors.highlight(" <b>4.</b> Edit the project description")
+        ConsoleColors.highlight(" <b>5.</b> View/Edit tasks (${project.tasks.size} tasks)")
+        ConsoleColors.highlight(" <b>6.</b> Close the project")
+        ConsoleColors.highlight(" <b>7.</b> Delete the project")
+        ConsoleColors.highlight(" <b>0.</b> Cancel")
 
         input = waitForValidResponse("Select an option from above: ", true, 0, 7) as Int
         return input
@@ -62,12 +56,12 @@ class ProjectView {
     fun showProject(project : ProjectModel) {
         if (project != null) {
             println()
-            println("Project name: ${project.name}")
-            println("Project descripton: ${project.description}")
+            ConsoleColors.highlight("<b>Project name:</b> ${project.name}")
+            ConsoleColors.highlight("<b>Project descripton:</b> ${project.description}")
 
             var defaultTimeFormat = SimpleDateFormat("dd.MM.YY")
             var timeStr: String = defaultTimeFormat.format(Date(project.createdOn))
-            println("Project created on: $timeStr")
+            ConsoleColors.highlight("<b>Project created on:</b> $timeStr")
 
             var activeStr: String
             if (project.isActive) {
@@ -75,7 +69,7 @@ class ProjectView {
             }
             else
                 activeStr = "No"
-            println("Project active: $activeStr")
+            ConsoleColors.highlight("<b>Project active:</b> $activeStr")
 
 
             var activeTimeStr: String = ""
@@ -92,9 +86,9 @@ class ProjectView {
                 // can't figure out why but the hour part of the date always starts with one hour, so I've hardcoded -1 to negate that...
                 activeTimeStr = "${Date(project.totalActiveTime).hours - 1}h ${Date(project.totalActiveTime).minutes}m ${Date(project.totalActiveTime).seconds}s"
             }
-            println("Total active time: $activeTimeStr")
+            ConsoleColors.highlight("<b>Total active time:</b> $activeTimeStr")
 
-            println("Number of tasks: ${project.tasks.size}")
+            ConsoleColors.highlight("<b>Number of tasks:</b> ${project.tasks.size}")
 
             var priorityStr: String = ""
             when(project.priority) {
@@ -104,7 +98,7 @@ class ProjectView {
                 4 -> priorityStr = "|**** |"
                 5 -> priorityStr = "|*****|"
             }
-            println("Project priority: $priorityStr")
+            ConsoleColors.highlight("<b>Project priority:</b> $priorityStr")
 
             var closedStr: String
             if (project.closed) {
@@ -113,26 +107,26 @@ class ProjectView {
             else
                 closedStr = "No"
 
-            println("Project ID: ${project.id}")
-            println("Closed: $closedStr")
+            ConsoleColors.highlight("<b>Project ID:</b> ${project.id}")
+            ConsoleColors.highlight("<b>Closed:</b> $closedStr")
         }
     }
 
     fun showTask(task: TaskModel) {
-        println("Description: ${task.description}")
+        ConsoleColors.highlight("<b>Description:</b> ${task.description}")
 
         var defaultTimeFormat = SimpleDateFormat("dd.MM.YY")
         var timeStr: String = defaultTimeFormat.format(Date(task.createdOn))
-        println("Created on: $timeStr")
+        ConsoleColors.highlight("<b>Created on:</b> $timeStr")
 
         if (task.closedOn == -1L) {
-            println("Closed: No")
+            ConsoleColors.highlight("<b>Closed:</b> No")
         }
         else {
             var timeStr: String = defaultTimeFormat.format(Date(task.closedOn))
             println("Closed on: $timeStr")
         }
-        println("Task ID: ${task.id}")
+        ConsoleColors.highlight("<b>Task ID:</b> ${task.id}")
         println()
     }
 
@@ -144,11 +138,11 @@ class ProjectView {
     fun showTaskMenu(): Int {
         var input: Int
 
-        println("TASK MENU OPTIONS")
-        println(" 1. Edit task description")
-        println(" 2. Close task")
-        println(" 3. Delete task")
-        println(" 0. Cancel")
+        ConsoleColors.highlight("<b>TASK MENU OPTIONS</b>")
+        ConsoleColors.highlight(" <b>1.</b> Edit task description")
+        ConsoleColors.highlight(" <b>2.</b> Close task")
+        ConsoleColors.highlight(" <b>3.</b> Delete task")
+        ConsoleColors.highlight(" <b>0.</b> Cancel")
 
         input = waitForValidResponse("Select an option from above: ", true, 0, 3) as Int
         return input
@@ -166,13 +160,13 @@ class ProjectView {
     fun showFilterProjectsMenu(): Int {
         var input: Int
 
-        println("What do you want to view?")
-        println(" 1. All projects")
-        println(" 2. Active Projects")
-        println(" 3. Inactive projects")
-        println(" 4. Closed Projects")
-        println(" 5. Search for a specific project by name")
-        println(" 0. Cancel")
+        ConsoleColors.highlight("<b>What do you want to view?</b>")
+        ConsoleColors.highlight(" <b>1.</b> All projects")
+        ConsoleColors.highlight(" <b>2.</b> Active Projects")
+        ConsoleColors.highlight(" <b>3.</b> Inactive projects")
+        ConsoleColors.highlight(" <b>4.</b> Closed Projects")
+        ConsoleColors.highlight(" <b>5.</b> Search for a specific project by name")
+        ConsoleColors.highlight(" <b>0.</b> Cancel")
 
         input = waitForValidResponse("Select an option from above: ", true, 0, 5) as Int
 
@@ -199,7 +193,7 @@ class ProjectView {
 
     fun listProjectsAndIds(projects: List<ProjectModel>) {
         println("------------------------------------------------------")
-        println("PROJECT".padEnd(30) +
+        ConsoleColors.highlight("PROJECT".padEnd(30) +
                 "IS ACTIVE".padEnd(15) +
                 "ID")
         projects.forEach { p -> showProjectAndId(p)}
@@ -220,7 +214,7 @@ class ProjectView {
 
     fun listTasksAndIds(tasks: List<TaskModel>) {
         println("------------------------------------------------------")
-        println("TASK".padEnd(30) +
+        ConsoleColors.highlight("TASK".padEnd(30) +
                 "IS ACTIVE".padEnd(15) +
                 "ID")
         tasks.forEach { t -> showTaskAndId(t) }
@@ -231,28 +225,28 @@ class ProjectView {
         var value: String
 
         while (true) {
-            print(prompt)
+            ConsoleColors.prompt(prompt)
             value = readLine()!!
 
             if (value.isEmpty()) {
-                System.out.println("You can't skip this, sorry. :(")
+                ConsoleColors.warning("You must specify a number between $min and $max.")
             }
             else if (intValue) {
                 var tempInt: Int?
                 tempInt = value.toIntOrNull()
 
                 if (tempInt == null) {
-                    println("You must specify a valid number.")
+                    ConsoleColors.warning("You must specify a number between $min and $max.")
                 } else if (tempInt < min || tempInt > max) {
-                    println("You must specify a number between $min and $max.")
+                    ConsoleColors.warning("You must specify a number between $min and $max.")
                 }
                 else
                     return tempInt
             } else
                 if (value.length < min) {
-                    println("Sorry, this is too short. Try something longer (min length is $min)")
+                    ConsoleColors.warning("You must specify a number between $min and $max.")
                 } else if (value.length > max) {
-                    println("Sorry, this is too long. Try something shorter (max length is $max)")
+                    ConsoleColors.warning("You must specify a number between $min and $max.")
                 } else
                     return value
         }
@@ -261,14 +255,14 @@ class ProjectView {
     fun confirmResponse(prompt: String): Boolean {
         val response: String
 
-        print(prompt+" y/n: ")
+        ConsoleColors.prompt(prompt+" y/n: ")
         response = readLine()!!
 
         when (response.toUpperCase()) {
             "Y" -> return true
             "N" -> return false
             else -> {
-                println("This is an invalid response...")
+                ConsoleColors.warning("This is an invalid response...")
                 return confirmResponse(prompt)
             }
         }
@@ -282,7 +276,7 @@ class ProjectView {
 
 /*      I started using the waitForValidResponse function to stop this code below from popping up everywhere
         while (tempPriority == null || tempPriority > 5 || tempPriority < 0) {
-            print("Invalid input... the priority must be a number between 1 (low) and 5 (high): ")
+            print("Invalid input...</b> the priority must be a number between 1 (low) and 5 (high): ")
             tempPriority = readLine()!!.toIntOrNull()
         }
         project.priority = tempPriority*/
@@ -340,10 +334,10 @@ class ProjectView {
         var strId : String? // String to hold user input
         var searchId : Long // Long to hold converted id
         if (isTask) {
-            print("Enter the ID of the task: ")
+            ConsoleColors.prompt("Enter the ID of the task: ")
         }
         else
-            print("Enter the ID of the project: ")
+            ConsoleColors.prompt("Enter the ID of the project: ")
 
         strId = readLine()!!
         searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
