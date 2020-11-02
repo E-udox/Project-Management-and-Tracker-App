@@ -1,131 +1,67 @@
 [
   {
-    "id": -4966257171101843149,
-    "name": "Goodbye World",
-    "description": "a description here",
-    "createdOn": 1604095491844,
+    "id": 7411379123949573641,
+    "name": "First Project",
+    "description": "This is my first project",
+    "createdOn": 1604336823760,
     "closedOn": -1,
     "isActive": false,
     "activeSince": -1,
     "totalActiveTime": 0,
-    "priority": 0,
-    "closed": false,
-    "tasks": []
-  },
-  {
-    "id": -7301351108303654322,
-    "name": "Another Random Project",
-    "description": "Hello World",
-    "createdOn": 1604095861219,
-    "closedOn": -1,
-    "isActive": false,
-    "activeSince": -1,
-    "totalActiveTime": 0,
-    "priority": 0,
-    "closed": false,
-    "tasks": []
-  },
-  {
-    "id": -2233807578652724742,
-    "name": "Testing Project",
-    "description": "Testing",
-    "createdOn": 1604097908753,
-    "closedOn": -1,
-    "isActive": true,
-    "activeSince": 1604097928096,
-    "totalActiveTime": 158584665,
-    "priority": 3,
-    "closed": false,
-    "tasks": []
-  },
-  {
-    "id": -8597625579199094544,
-    "name": "Hello...",
-    "description": "Hi",
-    "createdOn": 1604100211249,
-    "closedOn": -1,
-    "isActive": true,
-    "activeSince": 1604100270480,
-    "totalActiveTime": 156242281,
     "priority": 4,
     "closed": false,
     "tasks": [
       {
-        "id": 0,
-        "description": "Do something x",
-        "createdOn": 1604100229986,
+        "id": 5359189945071708466,
+        "description": "hello there",
+        "createdOn": 1604338201761,
         "closedOn": -1
       },
       {
-        "id": 0,
-        "description": "Do something y",
-        "createdOn": 1604100246177,
-        "closedOn": -1
-      },
-      {
-        "id": 0,
-        "description": "K",
-        "createdOn": 1604100263696,
+        "id": 4961340235240837574,
+        "description": "hi there 2",
+        "createdOn": 1604338252065,
         "closedOn": -1
       }
     ]
   },
   {
-    "id": 4610798689811528173,
-    "name": "awfawf",
-    "description": "awfawfawfawafafaw",
-    "createdOn": 1604167680274,
+    "id": 1369387855377663042,
+    "name": "Second Project",
+    "description": "Random Description Here",
+    "createdOn": 1604336891551,
     "closedOn": -1,
-    "isActive": false,
-    "activeSince": -1,
-    "totalActiveTime": 0,
-    "priority": 3,
-    "closed": false,
-    "tasks": []
-  },
-  {
-    "id": 3881789770517825701,
-    "name": "Testing Activity",
-    "description": "Testing Activity Time",
-    "createdOn": 1604251050571,
-    "closedOn": -1,
-    "isActive": false,
-    "activeSince": -1,
-    "totalActiveTime": 0,
-    "priority": 5,
-    "closed": false,
-    "tasks": []
-  },
-  {
-    "id": 5437556518986166074,
-    "name": "Testing Tasks",
-    "description": "This is to test tasks...",
-    "createdOn": 1604270684093,
-    "closedOn": -1,
-    "isActive": false,
-    "activeSince": -1,
-    "totalActiveTime": 0,
-    "priority": 5,
+    "isActive": true,
+    "activeSince": 1604336948224,
+    "totalActiveTime": 1088893,
+    "priority": 2,
     "closed": false,
     "tasks": [
       {
-        "id": 3953939748914972876,
-        "description": "Hello World!",
-        "createdOn": 1604270697994,
+        "id": 9042913262951805008,
+        "description": "This is a task desc",
+        "createdOn": 1604336914944,
         "closedOn": -1
       },
       {
-        "id": 4941960133443242206,
-        "description": "Hi there",
-        "createdOn": 1604270705099,
-        "closedOn": -1
-      },
-      {
-        "id": 5360767530866673300,
-        "description": "testing tasks",
-        "createdOn": 1604270708746,
+        "id": 6355476443316903241,
+        "description": "2nd task desc",
+        "createdOn": 1604336925744,
         "closedOn": -1
       }
     ]
+  },
+  {
+    "id": 5533630932705371486,
+    "name": "Testing Tasks",
+    "description": "Testing tasks on proejcts",
+    "createdOn": 1604338279360,
+    "closedOn": -1,
+    "isActive": false,
+    "activeSince": -1,
+    "totalActiveTime": 0,
+    "priority": 5,
+    "closed": false,
+    "tasks": []
   }
 ]

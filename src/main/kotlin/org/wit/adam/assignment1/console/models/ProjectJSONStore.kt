@@ -30,7 +30,9 @@ class ProjectJSONStore : ProjectStore {
         }
     }
 
-    override fun getAll(): MutableList<ProjectModel> {
+    override fun getAll(): List<ProjectModel> {
+        var projects = projects.sortedByDescending { p -> p.priority }
+
         return projects
     }
 
@@ -46,9 +48,15 @@ class ProjectJSONStore : ProjectStore {
     }
 
     fun getProjectsByStatus(active: Boolean, closed: Boolean): List<ProjectModel> {
-        var projectsFound = projects.filter{ p -> p.isActive == active && p.closed == closed }
+        var projectsFound = projects.filter{ p -> p.isActive == active && p.closed == closed }.sortedByDescending{ p -> p.priority }
 
         return projectsFound
+    }
+
+    fun getProjectsForListingIds(): List<ProjectModel> {
+        var projects = projects.sortedByDescending { p -> p.priority }.filter { p -> p.closed == false }
+
+        return projects
     }
 
     override fun create(project: ProjectModel) {

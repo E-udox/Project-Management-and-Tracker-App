@@ -1,5 +1,6 @@
 package org.wit.adam.assignment1.console.views
 
+import org.wit.adam.assignment1.console.helpers.ConsoleColors
 import org.wit.adam.assignment1.console.models.ProjectJSONStore
 import org.wit.adam.assignment1.console.models.ProjectModel
 import org.wit.adam.assignment1.console.models.TaskModel
@@ -7,6 +8,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ProjectView {
+
+    var projectNameMaxLength: Int = 30
+    var projectDescriptionMaxLength: Int = 60
+    var projectNameMinLength: Int = 5
+    var projectDescriptionMinLength: Int = 10
 
     fun menu() : Int {
 
@@ -29,7 +35,7 @@ class ProjectView {
         return option
     }
 
-    fun updateOptions(project: ProjectModel): Int {
+    fun showProjectOptions(project: ProjectModel): Int {
         var input: Int
 
         var activeStr: String
@@ -41,10 +47,10 @@ class ProjectView {
 
         println("UPDATE PROJECT OPTIONS")
         println(" 1. Add a new task")
-        println(" 2. Set project as active/inactive (currently $activeStr")
+        println(" 2. Set project as active/inactive (currently $activeStr)")
         println(" 3. Edit the project name")
         println(" 4. Edit the project description")
-        println(" 5. View/Edit tasks")
+        println(" 5. View/Edit tasks (${project.tasks.size} tasks)")
         println(" 6. Close the project")
         println(" 7. Delete the project")
         println(" 0. Cancel")
@@ -90,6 +96,16 @@ class ProjectView {
 
             println("Number of tasks: ${project.tasks.size}")
 
+            var priorityStr: String = ""
+            when(project.priority) {
+                1 -> priorityStr = "|*    |"
+                2 -> priorityStr = "|**   |"
+                3 -> priorityStr = "|***  |"
+                4 -> priorityStr = "|**** |"
+                5 -> priorityStr = "|*****|"
+            }
+            println("Project priority: $priorityStr")
+
             var closedStr: String
             if (project.closed) {
                 closedStr = "Yes"
@@ -103,7 +119,6 @@ class ProjectView {
     }
 
     fun showTask(task: TaskModel) {
-        println()
         println("Description: ${task.description}")
 
         var defaultTimeFormat = SimpleDateFormat("dd.MM.YY")
@@ -118,28 +133,10 @@ class ProjectView {
             println("Closed on: $timeStr")
         }
         println("Task ID: ${task.id}")
+        println()
     }
 
-    // @listProject
-    fun listProjectTasks(project: ProjectModel): Boolean {
-        if (project.tasks.size > 0) {
-            println("-------------------------------------------------")
-            project.tasks.forEach { t -> showTask(t) }
-            println("-------------------------------------------------")
-            return true
-        }
-        else{
-            System.out.println("There are no tasks for this project... would you like to add some?")
-            if (confirmResponse("There are no tasks for this project... would you like to add some?")) {
-                addTasksToProject(project)
-                return true
-            }
-            else
-                return false
-        }
-    }
-
-    fun updateTask(task: TaskModel) {
+    fun promptUpdateTask(task: TaskModel) {
         println("Current description for task ${task.description}")
         task.description = waitForValidResponse("Please enter a new description for this task: ", false, 10, 20) as String
     }
@@ -158,8 +155,7 @@ class ProjectView {
     }
 
 
-
-    fun searchForProject(): String {
+    fun promptSearchForProject(): String {
         var searchStr: String
 
         searchStr = waitForValidResponse("What is the name of the project: ", false, 5, 15) as String
@@ -167,7 +163,7 @@ class ProjectView {
         return searchStr
     }
 
-    fun viewProjects(): Int {
+    fun showFilterProjectsMenu(): Int {
         var input: Int
 
         println("What do you want to view?")
@@ -187,6 +183,48 @@ class ProjectView {
         println("-------------------------------------------------")
         projects.forEach { p -> showProject(p)}
         println("-------------------------------------------------")
+    }
+
+    fun showProjectAndId(project: ProjectModel) {
+        var projectStr: String = project.name
+        var projectStatus: String = "Inactive"
+        if (project.isActive) {
+            projectStatus = "Active"
+        }
+
+        println(projectStr.padEnd(30) +
+                projectStatus.padEnd(15) +
+                project.id)
+    }
+
+    fun listProjectsAndIds(projects: List<ProjectModel>) {
+        println("------------------------------------------------------")
+        println("PROJECT".padEnd(30) +
+                "IS ACTIVE".padEnd(15) +
+                "ID")
+        projects.forEach { p -> showProjectAndId(p)}
+        println("------------------------------------------------------")
+    }
+
+    fun showTaskAndId(task: TaskModel) {
+        var taskDescriptionStr: String = task.description
+        var taskStatusStr: String = "Closed"
+        if (task.closedOn == -1L) {
+            taskStatusStr = "Active"
+        }
+
+        println(taskDescriptionStr.padEnd(30) +
+                taskStatusStr.padEnd(15) +
+                task.id)
+    }
+
+    fun listTasksAndIds(tasks: List<TaskModel>) {
+        println("------------------------------------------------------")
+        println("TASK".padEnd(30) +
+                "IS ACTIVE".padEnd(15) +
+                "ID")
+        tasks.forEach { t -> showTaskAndId(t) }
+        println("------------------------------------------------------")
     }
 
     fun waitForValidResponse(prompt: String, intValue: Boolean, min: Int, max: Int): Any {
@@ -237,8 +275,8 @@ class ProjectView {
     }
 
     fun addProjectData(project : ProjectModel) : Boolean {
-        project.name = waitForValidResponse("Enter a project name: ", false, 5, 20) as String
-        project.description = waitForValidResponse("Enter a project description: ", false, 10, 30) as String
+        project.name = waitForValidResponse("Enter a project name: ", false, projectNameMinLength, projectNameMaxLength) as String
+        project.description = waitForValidResponse("Enter a project description: ", false, projectDescriptionMinLength, projectDescriptionMaxLength) as String
         project.priority = waitForValidResponse("Give your project a priority between 1 (low) and 5 (high): ", true, 1, 5) as Int
 
 
@@ -273,7 +311,7 @@ class ProjectView {
     fun addTasksToProject(project: ProjectModel) {
         var task: TaskModel = TaskModel()
 
-        task.description = waitForValidResponse("Enter the task description: ", false, 5, 20) as String
+        task.description = waitForValidResponse("Enter the task description: ", false, projectDescriptionMinLength, projectDescriptionMaxLength) as String
         task.id = generateRandomId() // :(
         project.tasks.add(task)
 
@@ -285,9 +323,16 @@ class ProjectView {
 
     fun updateProjectData(currentValue: String, propertyName: String): String {
         var input: String
+        var maxLength: Int = projectNameMaxLength
+        var minLength: Int = projectNameMinLength
+
+        if (propertyName == "description") {
+            maxLength = projectDescriptionMaxLength
+            minLength = projectDescriptionMinLength
+        }
 
         println("Current $propertyName for this project is '$currentValue'")
-        input = waitForValidResponse("Enter a new $propertyName for this project: ", false, 5, 15) as String
+        input = waitForValidResponse("Enter a new $propertyName for this project: ", false, minLength, maxLength) as String
         return input
     }
 
