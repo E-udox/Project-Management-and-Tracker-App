@@ -1,80 +1,54 @@
 [
   {
-    "id": 7411379123949573641,
-    "name": "First Project",
-    "description": "This is my first project",
-    "createdOn": 1604336823760,
-    "closedOn": -1,
-    "isActive": false,
-    "activeSince": -1,
-    "totalActiveTime": 0,
-    "priority": 4,
-    "closed": false,
-    "tasks": [
-      {
-        "id": 5359189945071708466,
-        "description": "hello there",
-        "createdOn": 1604338201761,
-        "closedOn": -1
-      },
-      {
-        "id": 4961340235240837574,
-        "description": "hi there 2",
-        "createdOn": 1604338252065,
-        "closedOn": -1
-      }
-    ]
-  },
-  {
-    "id": 1369387855377663042,
-    "name": "Second Project",
-    "description": "Random Description Here",
-    "createdOn": 1604336891551,
+    "id": 1294453070232415664,
+    "name": "Updated Name",
+    "description": "My first project description",
+    "createdOn": 1604413543355,
     "closedOn": -1,
     "isActive": true,
-    "activeSince": 1604336948224,
-    "totalActiveTime": 1088893,
-    "priority": 2,
+    "activeSince": 1604413840349,
+    "totalActiveTime": 0,
+    "priority": 3,
     "closed": false,
     "tasks": [
       {
-        "id": 9042913262951805008,
-        "description": "This is a task desc",
-        "createdOn": 1604336914944,
+        "id": 7270625755829166852,
+        "description": "First Task",
+        "createdOn": 1604413690060,
         "closedOn": -1
       },
       {
-        "id": 6355476443316903241,
-        "description": "2nd task desc",
-        "createdOn": 1604336925744,
+        "id": 99689225427939991,
+        "description": "A Second Task",
+        "createdOn": 1604413697019,
+        "closedOn": 1604413740955
+      },
+      {
+        "id": 4138473988955237485,
+        "description": "A Third and Final Task",
+        "createdOn": 1604413701612,
         "closedOn": -1
       }
     ]
   },
   {
-    "id": 5533630932705371486,
-    "name": "Testing Tasks",
-    "description": "Testing tasks on proejcts",
-    "createdOn": 1604338279360,
+    "id": 2016476426938697162,
+    "name": "Second Project",
+    "description": "A second description",
+    "createdOn": 1604413850940,
     "closedOn": -1,
-    "isActive": false,
-    "activeSince": -1,
+    "isActive": true,
+    "activeSince": 1604413883051,
     "totalActiveTime": 0,
     "priority": 5,
     "closed": false,
-    "tasks": []
-  },
-  {
-    "id": 3157604303211617490,
-    "name": "1st project",
-    "description": "1 project description",
-    "createdOn": 1604343582600,
-    "closedOn": -1,
-    "isActive": true,
-    "activeSince": 1604343601058,
-    "totalActiveTime": 0,
-    "priority": 4,
-    "closed": false,
-    "tasks": []
+    "tasks": [
+      {
+        "id": 3873553511903684605,
+        "description": "Task One Description...",
+        "createdOn": 1604413864364,
+        "closedOn": -1
+      }
+    ]
   }
 ]

@@ -9,6 +9,7 @@ import java.util.*
 
 class ProjectView {
 
+    // some variables for limiting the min/max length of project/tasks names
     var projectNameMaxLength: Int = 30
     var projectDescriptionMaxLength: Int = 60
     var projectNameMinLength: Int = 5
@@ -21,7 +22,6 @@ class ProjectView {
         ConsoleColors.highlight(" <b>1.</b> Start a new project")
         ConsoleColors.highlight(" <b>2.</b> View projects")
         ConsoleColors.highlight(" <b>3.</b> Edit a project")
-        ConsoleColors.highlight(" <b>4.</b> Settings")
         ConsoleColors.highlight(" <b>0.</b> Exit")
         println()
         option = waitForValidResponse("Enter an option: ", true, 0, 4) as Int
@@ -29,6 +29,7 @@ class ProjectView {
         return option
     }
 
+    // prints the menu associated with editing a project
     fun showProjectOptions(project: ProjectModel): Int {
         var input: Int
 
@@ -53,6 +54,7 @@ class ProjectView {
         return input
     }
 
+    // prints a project
     fun showProject(project : ProjectModel) {
         if (project != null) {
             println()
@@ -112,6 +114,8 @@ class ProjectView {
         }
     }
 
+
+    // prints a task
     fun showTask(task: TaskModel) {
         ConsoleColors.highlight("<b>Description:</b> ${task.description}")
 
@@ -130,11 +134,13 @@ class ProjectView {
         println()
     }
 
+    // allows the user to update a task description
     fun promptUpdateTask(task: TaskModel) {
         println("Current description for task ${task.description}")
         task.description = waitForValidResponse("Please enter a new description for this task: ", false, 10, 20) as String
     }
 
+    // prints the menu associated with editing tasks
     fun showTaskMenu(): Int {
         var input: Int
 
@@ -148,7 +154,7 @@ class ProjectView {
         return input
     }
 
-
+    // allows the user to search for a project by name
     fun promptSearchForProject(): String {
         var searchStr: String
 
@@ -157,6 +163,7 @@ class ProjectView {
         return searchStr
     }
 
+    // prints a menu, showing options for filtering projects
     fun showFilterProjectsMenu(): Int {
         var input: Int
 
@@ -173,12 +180,15 @@ class ProjectView {
         return input
     }
 
+
+    // prints a list of projects
     fun listProjects(projects: List<ProjectModel>) {
         println("-------------------------------------------------")
         projects.forEach { p -> showProject(p)}
         println("-------------------------------------------------")
     }
 
+    // prints a project name and its ID
     fun showProjectAndId(project: ProjectModel) {
         var projectStr: String = project.name
         var projectStatus: String = "Inactive"
@@ -191,6 +201,8 @@ class ProjectView {
                 project.id)
     }
 
+
+    // generates a table of projects and their ID
     fun listProjectsAndIds(projects: List<ProjectModel>) {
         println("------------------------------------------------------")
         ConsoleColors.highlight("PROJECT".padEnd(30) +
@@ -200,6 +212,7 @@ class ProjectView {
         println("------------------------------------------------------")
     }
 
+    // prints a task desc and its ID
     fun showTaskAndId(task: TaskModel) {
         var taskDescriptionStr: String = task.description
         var taskStatusStr: String = "Closed"
@@ -212,6 +225,7 @@ class ProjectView {
                 task.id)
     }
 
+    // generates a table of tasks and their ID
     fun listTasksAndIds(tasks: List<TaskModel>) {
         println("------------------------------------------------------")
         ConsoleColors.highlight("TASK".padEnd(30) +
@@ -221,6 +235,10 @@ class ProjectView {
         println("------------------------------------------------------")
     }
 
+    /*
+        waits for a correct response given question, an expected data type and min/max
+        where min/max either means between two numbers or the string length
+     */
     fun waitForValidResponse(prompt: String, intValue: Boolean, min: Int, max: Int): Any {
         var value: String
 
@@ -252,6 +270,7 @@ class ProjectView {
         }
     }
 
+    // Takes in a question and waits for the user to respond to it
     fun confirmResponse(prompt: String): Boolean {
         val response: String
 
@@ -268,6 +287,7 @@ class ProjectView {
         }
     }
 
+    // Walks the user through creating a new project
     fun addProjectData(project : ProjectModel) : Boolean {
         project.name = waitForValidResponse("Enter a project name: ", false, projectNameMinLength, projectNameMaxLength) as String
         project.description = waitForValidResponse("Enter a project description: ", false, projectDescriptionMinLength, projectDescriptionMaxLength) as String

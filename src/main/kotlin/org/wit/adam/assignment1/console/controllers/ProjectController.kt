@@ -24,8 +24,7 @@ class ProjectController {
                 1 -> add()
                 2 -> list()
                 3 -> update()
-                4 -> settings()
-                0 -> println("Exiting the app...")
+                0 -> ConsoleColors.success("Exiting the app...")
                 else -> ConsoleColors.warning("Your option $input is invalid, try again")
             }
             println()
@@ -44,8 +43,7 @@ class ProjectController {
             logger.info("Project not created.")
     }
 
-
-
+    // uses to display back a filtered list of projects based on what a user wants to see
     fun list() {
         var input: Int
 
@@ -60,6 +58,7 @@ class ProjectController {
         }
     }
 
+    // deals with the user interacting with tasks
     fun taskMenu(project: ProjectModel) {
         var task: TaskModel?
 
@@ -71,6 +70,10 @@ class ProjectController {
                 return
         }
 
+        /*
+         if there's more than one task we need to ask which one the user wants to see,
+         otherwise let's just automatically select the only one available
+         */
         if (project.tasks.size > 1) {
             projectView.listTasksAndIds(project.tasks)
             var taskId: Long = projectView.getId(true)
@@ -115,11 +118,31 @@ class ProjectController {
         }
     }
 
+    // handles the user editing a project
     fun update() {
-        projectView.listProjectsAndIds(projects.getProjectsForListingIds())
+        var project: ProjectModel?
 
-        var searchId = projectView.getId(false)
-        val project = search(searchId)
+        if (projects.projects.size == 0) {
+            if (projectView.confirmResponse("You have no projects... would you like to create one?")) {
+                add()
+            }
+            else
+                return
+        }
+
+        /*
+         if there's more than one project we need to ask which one the user wants to see,
+         otherwise let's just automatically select the only one available
+         */
+        if (projects.projects.size > 1) {
+            projectView.listProjectsAndIds(projects.getProjectsForListingIds())
+            var searchId = projectView.getId(false)
+            project = search(searchId)
+        }
+        else {
+            ConsoleColors.success("Only one project available, automatically selecting...")
+            project = projects.projects.first()
+        }
 
         if(project != null) {
             if (project.closed) {
@@ -171,8 +194,8 @@ class ProjectController {
 
 
     fun search(id: Long) : ProjectModel? {
-        var foundPlacemark = projects.getOne(id)
-        return foundPlacemark
+        var project = projects.getOne(id)
+        return project
     }
 
     fun settings() {
