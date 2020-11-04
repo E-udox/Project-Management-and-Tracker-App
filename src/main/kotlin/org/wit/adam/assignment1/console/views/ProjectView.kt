@@ -24,7 +24,7 @@ class ProjectView {
         ConsoleColors.highlight(" <b>3.</b> Edit a project")
         ConsoleColors.highlight(" <b>0.</b> Exit")
         println()
-        option = waitForValidResponse("Enter an option: ", true, 0, 4) as Int
+        option = waitForValidResponse("Enter an option: ", true, 0, 3) as Int
 
         return option
     }
@@ -158,7 +158,7 @@ class ProjectView {
     fun promptSearchForProject(): String {
         var searchStr: String
 
-        searchStr = waitForValidResponse("What is the name of the project: ", false, 5, 15) as String
+        searchStr = waitForValidResponse("What is the name of the project: ", false, 1, projectNameMaxLength) as String
 
         return searchStr
     }
@@ -247,24 +247,22 @@ class ProjectView {
             value = readLine()!!
 
             if (value.isEmpty()) {
-                ConsoleColors.warning("You must specify a number between $min and $max.")
+                ConsoleColors.warning("You can't skip this sorry :(")
             }
             else if (intValue) {
                 var tempInt: Int?
                 tempInt = value.toIntOrNull()
 
-                if (tempInt == null) {
-                    ConsoleColors.warning("You must specify a number between $min and $max.")
-                } else if (tempInt < min || tempInt > max) {
+                if (tempInt == null || tempInt < min || tempInt > max) {
                     ConsoleColors.warning("You must specify a number between $min and $max.")
                 }
                 else
                     return tempInt
             } else
                 if (value.length < min) {
-                    ConsoleColors.warning("You must specify a number between $min and $max.")
+                    ConsoleColors.warning("Sorry, this is too short. Try something longer (min length is $min)")
                 } else if (value.length > max) {
-                    ConsoleColors.warning("You must specify a number between $min and $max.")
+                    ConsoleColors.warning("Sorry, this is too long. Try something shorter (max length is $max)")
                 } else
                     return value
         }

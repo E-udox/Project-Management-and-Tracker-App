@@ -147,6 +147,7 @@ class ProjectController {
         if(project != null) {
             if (project.closed) {
                 ConsoleColors.warning("This project was closed, you cannot edit it again.")
+                return
             }
 
             do {
@@ -158,14 +159,17 @@ class ProjectController {
                         project.isActive = !project.isActive
                         project.activeSince = System.currentTimeMillis()
                         ConsoleColors.success("Project activity updated.")
+                        projects.update(project)
                     }
                     3 -> {
                         project.name = projectView.updateProjectData(project.name, "name")
                         ConsoleColors.success("Project name updated.")
+                        projects.update(project)
                     }
                     4 -> {
                         project.description = projectView.updateProjectData(project.description, "description")
                         ConsoleColors.success("Project description updated.")
+                        projects.update(project)
                     }
                     5 -> taskMenu(project)
                     6 -> {
@@ -173,6 +177,7 @@ class ProjectController {
                             project.closed = true
                             project.isActive = false
                             project.closedOn = System.currentTimeMillis()
+                            projects.update(project)
                             ConsoleColors.success("Project has been closed...")
                             return
                         }

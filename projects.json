@@ -1,53 +1,131 @@
 [
   {
-    "id": 1294453070232415664,
-    "name": "Updated Name",
-    "description": "My first project description",
-    "createdOn": 1604413543355,
+    "id": 3547680177513413388,
+    "name": "First Project",
+    "description": "This is my first project",
+    "createdOn": 1604496546675,
     "closedOn": -1,
     "isActive": true,
-    "activeSince": 1604413840349,
-    "totalActiveTime": 0,
-    "priority": 3,
+    "activeSince": 1604496582162,
+    "totalActiveTime": 37040580,
+    "priority": 1,
     "closed": false,
     "tasks": [
       {
-        "id": 7270625755829166852,
-        "description": "First Task",
-        "createdOn": 1604413690060,
+        "id": 6218920392164358798,
+        "description": "My first task",
+        "createdOn": 1604496562146,
         "closedOn": -1
       },
       {
-        "id": 99689225427939991,
-        "description": "A Second Task",
-        "createdOn": 1604413697019,
-        "closedOn": 1604413740955
-      },
-      {
-        "id": 4138473988955237485,
-        "description": "A Third and Final Task",
-        "createdOn": 1604413701612,
+        "id": 2258638888495547786,
+        "description": "A second task",
+        "createdOn": 1604496571778,
         "closedOn": -1
       }
     ]
   },
   {
-    "id": 2016476426938697162,
-    "name": "Second Project",
-    "description": "A second description",
-    "createdOn": 1604413850940,
+    "id": 3923444277856876698,
+    "name": "Submit Mobile Dev Assignment",
+    "description": "Submit the first assignment of mobile dev",
+    "createdOn": 1604496648467,
     "closedOn": -1,
     "isActive": true,
-    "activeSince": 1604413883051,
-    "totalActiveTime": 0,
+    "activeSince": 1604496733538,
+    "totalActiveTime": 36283692,
     "priority": 5,
     "closed": false,
     "tasks": [
       {
-        "id": 3873553511903684605,
-        "description": "Task One Description...",
-        "createdOn": 1604413864364,
+        "id": 5242175628456973728,
+        "description": "Add my repository to the submission",
+        "createdOn": 1604496679123,
         "closedOn": -1
+      },
+      {
+        "id": 3829129648052269762,
+        "description": "Create a video to demonstrate the program",
+        "createdOn": 1604496704914,
+        "closedOn": -1
+      },
+      {
+        "id": 4631312588124619255,
+        "description": "Submit to Moodle",
+        "createdOn": 1604496726546,
+        "closedOn": -1
+      }
+    ]
+  },
+  {
+    "id": 6626910082309256284,
+    "name": "Lorem Ipsum",
+    "description": "Lorem Ipsum De cor et",
+    "createdOn": 1604496735730,
+    "closedOn": -1,
+    "isActive": false,
+    "activeSince": -1,
+    "totalActiveTime": 0,
+    "priority": 2,
+    "closed": false,
+    "tasks": []
+  },
+  {
+    "id": 1805325981876479212,
+    "name": "Testing Project",
+    "description": "Hello World Description",
+    "createdOn": 1604496790785,
+    "closedOn": 1604497481890,
+    "isActive": false,
+    "activeSince": -1,
+    "totalActiveTime": 0,
+    "priority": 4,
+    "closed": true,
+    "tasks": []
+  },
+  {
+    "id": 285705596885830524,
+    "name": "Updated Demo project Name",
+    "description": "Demo Description",
+    "createdOn": 1604497879554,
+    "closedOn": 1604498327585,
+    "isActive": false,
+    "activeSince": 1604498103714,
+    "totalActiveTime": 157663,
+    "priority": 4,
+    "closed": true,
+    "tasks": [
+      {
+        "id": 2507851809128163558,
+        "description": "Hello World",
+        "createdOn": 1604498021458,
+        "closedOn": 1604498070947
+      }
+    ]
+  },
+  {
+    "id": 4516785754199523446,
+    "name": "Updated Demp1234",
+    "description": "Demo Description",
+    "createdOn": 1604508152800,
+    "closedOn": 1604508508369,
+    "isActive": false,
+    "activeSince": 1604508479264,
+    "totalActiveTime": 295139,
+    "priority": 4,
+    "closed": true,
+    "tasks": [
+      {
+        "id": 2935704312549278253,
+        "description": "Updated Hello World",
+        "createdOn": 1604508306207,
+        "closedOn": 1604508369792
+      },
+      {
+        "id": 8070141107409797916,
+        "description": "Lorem Ipsum",
+        "createdOn": 1604508410833,
+        "closedOn": 1604508460256
       }
     ]
   }

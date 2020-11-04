@@ -73,6 +73,7 @@ class ProjectJSONStore : ProjectStore {
             foundProject.activeSince = project.activeSince
             foundProject.priority = project.priority
             foundProject.tasks = project.tasks
+            foundProject.closed = project.closed
             if (foundProject.isActive) {
                 foundProject.totalActiveTime = project.totalActiveTime + (System.currentTimeMillis() - project.activeSince)
             }
